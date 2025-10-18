@@ -1,0 +1,265 @@
+---
+title: "Coeficiente de Erosionabilidad y Esfuerzo Cortante Crítico"
+subtitle: "Valores característicos para tipos de suelos comunes"
+author: "Tu Nombre"
+date: today
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 3
+    code-fold: false
+---
+
+## Introducción
+
+Los parámetros de erosionabilidad del suelo son fundamentales para modelar con precisión los procesos de erosión hídrica. La erosionabilidad y el esfuerzo cortante crítico representan la resistencia del suelo y pueden afectar significativamente la tasa de erosión. Este documento explora los valores típicos de dos parámetros clave:
+
+1. **Coeficiente de erosionabilidad** ($k_e$ o $k_d$): Representa la susceptibilidad del suelo al desprendimiento y transporte
+2. **Esfuerzo cortante crítico** ($\tau_c$): El esfuerzo hidráulico mínimo necesario para iniciar el movimiento de partículas
+
+---
+
+## Marco Conceptual
+
+### Ecuación de Exceso de Esfuerzo
+
+La ecuación de exceso de esfuerzo es la ecuación simplificada común para estimar la erosionabilidad de los suelos por flujo superficial:
+
+$$
+E_r = k_d (\tau_e - \tau_c)^a
+$$
+
+donde:
+
+- $E_r$ = tasa de erosión (m/s o kg/m²·s)
+- $k_d$ = coeficiente de erosionabilidad (m³/N·s o s/m)
+- $\tau_e$ = esfuerzo hidráulico efectivo (Pa o N/m²)
+- $\tau_c$ = esfuerzo cortante crítico (Pa)
+- $a$ = exponente empírico (típicamente 1.0)
+
+### Factores que Influyen en la Erosionabilidad
+
+Estos parámetros son afectados por factores que muestran alta variabilidad en tiempo y espacio, tales como propiedades del suelo, uso del suelo y prácticas de manejo.
+
+Los principales factores incluyen:
+
+- **Textura del suelo**: Proporción de arena, limo y arcilla
+- **Estructura**: Agregación y estabilidad de agregados
+- **Materia orgánica**: Aumenta la cohesión y resistencia
+- **Compactación**: Afecta la densidad y porosidad
+- **Contenido de humedad**: Influye en la cohesión
+- **Composición mineralógica**: Tipo de arcillas presentes
+
+---
+
+## Coeficiente de Erosionabilidad ($k_d$)
+
+### Rangos de Valores
+
+El coeficiente de erosionabilidad $k_d$ reportado en cm³/N·s ha sido observado variar en rango desde 0.001 hasta 1000. Los valores bajos indican suelos resistentes a la erosión y los valores altos indican suelos erosionables.
+
+**Conversión de unidades:**
+- 1 cm³/N·s = 0.00001 m³/N·s = 0.01 m/Pa·s
+
+### Valores por Tipo de Suelo
+
+| Tipo de Suelo | $k_d$ (cm³/N·s) | $k_d$ (m³/N·s) | Clasificación |
+|---------------|-----------------|----------------|---------------|
+| Arena gruesa | 10 - 100 | 0.0001 - 0.001 | Moderada |
+| Arena fina | 1 - 10 | 0.00001 - 0.0001 | Baja-Moderada |
+| Limo | 0.1 - 1 | 0.000001 - 0.00001 | Baja |
+| Limo-arcilloso | 0.01 - 0.1 | 0.0000001 - 0.000001 | Muy baja |
+| Arcilla de baja plasticidad | 0.01 - 0.5 | 0.0000001 - 0.000005 | Muy baja |
+| Arcilla de alta plasticidad | 0.001 - 0.01 | 0.00000001 - 0.0000001 | Extremadamente baja |
+
+### Relación con la Textura
+
+Los suelos clasificados como arena pobremente graduada caerían dentro de las categorías I y II (erosionabilidad muy alta a alta), mientras que un suelo clasificado como arcilla grasa muy probablemente caería en la Categoría III (erosionabilidad media).
+
+**Tendencias generales:**
+
+- **Arenas**: Partículas fácilmente desprendibles pero bajo escurrimiento → erosionabilidad moderada
+- **Limos y arenas finas**: Los suelos más erosionables son aquellos ricos en limo y arena fina
+- **Arcillas**: Alta resistencia al desprendimiento → baja erosionabilidad
+
+---
+
+## Esfuerzo Cortante Crítico ($\tau_c$)
+
+### Rangos de Valores
+
+El esfuerzo cortante crítico fue más variable (1.0-2.0 N/m²) para temperaturas menores a 175°C en suelos forestales, aunque los valores varían ampliamente según el tipo de suelo.
+
+### Valores por Tipo de Suelo
+
+| Tipo de Suelo | $\tau_c$ (Pa) | $\tau_c$ (N/m²) | Resistencia |
+|---------------|---------------|-----------------|-------------|
+| Arena no cohesiva (D₅₀ = 0.5 mm) | 0.5 - 2 | 0.5 - 2 | Muy baja |
+| Arena fina | 1 - 5 | 1 - 5 | Baja |
+| Limo no plástico | 2 - 10 | 2 - 10 | Baja-Media |
+| Limo de baja plasticidad | 5 - 15 | 5 - 15 | Media |
+| Franco limoso | 3 - 12 | 3 - 12 | Media |
+| Arcilla limosa | 8 - 25 | 8 - 25 | Media-Alta |
+| Arcilla de baja plasticidad | 10 - 40 | 10 - 40 | Alta |
+| Arcilla de alta plasticidad | 20 - 100 | 20 - 100 | Muy alta |
+| Arcilla consolidada | 50 - 200+ | 50 - 200+ | Extremadamente alta |
+
+### Ecuaciones Empíricas
+
+**Para materiales no cohesivos (arenas y gravas):**
+
+$$
+\tau_c = (\gamma_s - \gamma) \cdot D_{50} \cdot 0.05
+$$
+
+donde:
+- $\gamma_s$ = peso unitario del suelo (kN/m³)
+- $\gamma$ = peso unitario del agua (9.81 kN/m³)
+- $D_{50}$ = tamaño medio de partícula (m)
+
+**Para materiales cohesivos:**
+
+Basado en el índice de plasticidad (PI):
+
+$$
+\tau_c = 0.0034 \cdot PI^{0.84} \quad \text{(suelo no compactado)}
+$$
+
+$$
+\tau_c = 0.019 \cdot PI^{0.58} \quad \text{(suelo normalmente compactado)}
+$$
+
+---
+
+## Factor K de Erosionabilidad del Suelo (RUSLE/USLE)
+
+El Factor K representa la erosionabilidad del suelo en la Ecuación Universal de Pérdida de Suelo. Es diferente de $k_d$ pero está relacionado con la susceptibilidad del suelo.
+
+### Rangos de Valores del Factor K
+
+El factor de erosionabilidad del suelo varía en valor desde 0.02 hasta 0.69.
+
+### Valores por Textura
+
+Los suelos de textura fina que son altos en arcilla tienen valores K bajos (aproximadamente 0.05 a 0.15) porque las partículas son resistentes al desprendimiento. Los suelos de textura gruesa, como los suelos arenosos, también tienen valores K bajos (aproximadamente 0.05 a 0.2) debido a la alta infiltración resultando en bajo escurrimiento. Los suelos de textura media, como un franco limoso, tienen valores K moderados (aproximadamente 0.25 a 0.45).
+
+| Textura del Suelo | Factor K | Erosionabilidad |
+|-------------------|----------|-----------------|
+| Arcilla | 0.05 - 0.15 | Muy baja |
+| Arcilla limosa | 0.20 - 0.30 | Baja-Media |
+| Franco arcilloso | 0.20 - 0.30 | Baja-Media |
+| Franco | 0.25 - 0.35 | Media |
+| Franco limoso | 0.35 - 0.45 | Media-Alta |
+| Limo | 0.40 - 0.50 | Alta |
+| Arena fina/Limo arenoso | 0.10 - 0.25 | Baja-Media |
+| Franco arenoso | 0.10 - 0.20 | Baja |
+| Arena | 0.05 - 0.10 | Muy baja |
+
+**Nota importante:** El efecto del tipo de suelo en K: limo > franco limoso = arena fina > franco > franco arcilloso > arcilla > arena gruesa.
+
+---
+
+## Variabilidad y Dependencia de Escala
+
+### Variación con la Profundidad
+
+En el Sitio 1, se encontró una capa de arcilla de alta plasticidad a 25 cm de profundidad en el perfil del suelo, con un esfuerzo cortante crítico que era en promedio cinco veces mayor que el medido en la capa superficial.
+
+### Efectos del Método de Prueba
+
+Los valores del coeficiente de erosión son sistemáticamente más altos con el JET que con el HET y el índice de tasa de erosión correspondiente es sistemáticamente menor con el JET que con el HET.
+
+### Influencia del Contenido de Materia Orgánica
+
+El aumento de las cantidades de materia orgánica del suelo resulta en valores decrecientes de K. La materia orgánica:
+- Aumenta la agregación del suelo
+- Mejora la estabilidad estructural
+- Incrementa la infiltración
+- Reduce el escurrimiento superficial
+
+---
+
+## Recomendaciones Prácticas para Modelado
+
+### Selección de Parámetros
+
+1. **Identifique la textura dominante** del suelo en su área de estudio
+2. **Considere la estructura** y el grado de compactación
+3. **Evalúe el contenido de materia orgánica** (especialmente importante en horizontes superficiales)
+4. **Ajuste por condiciones de humedad** si es relevante
+5. **Considere la variabilidad espacial** en sitios heterogéneos
+
+### Valores Iniciales Sugeridos para Modelado
+
+Para simulaciones preliminares con Landlab, se sugieren estos rangos conservadores:
+
+| Tipo de Suelo | $k_d$ (m³/N·s) | $\tau_c$ (Pa) | Notas |
+|---------------|----------------|---------------|-------|
+| **Arena** | 1×10⁻⁵ - 1×10⁻⁴ | 0.5 - 2 | Alta movilidad, baja cohesión |
+| **Franco arenoso** | 5×10⁻⁶ - 5×10⁻⁵ | 2 - 8 | Moderadamente erosionable |
+| **Franco** | 1×10⁻⁶ - 1×10⁻⁵ | 3 - 10 | Equilibrado |
+| **Franco limoso** | 5×10⁻⁷ - 5×10⁻⁶ | 5 - 15 | Altamente erosionable |
+| **Franco arcilloso** | 1×10⁻⁷ - 1×10⁻⁶ | 8 - 25 | Resistente al desprendimiento |
+| **Arcilla** | 1×10⁻⁸ - 1×10⁻⁷ | 15 - 60 | Muy resistente |
+
+### Análisis de Sensibilidad
+
+Es crucial realizar análisis de sensibilidad variando estos parámetros dentro de rangos razonables, ya que:
+
+- Los parámetros son difíciles de estimar basándose en otras propiedades del suelo
+- Existe gran variabilidad incluso dentro del mismo tipo de suelo
+- Las condiciones de campo pueden diferir significativamente de las de laboratorio
+
+---
+
+## Categorías de Erosionabilidad
+
+Las categorías van desde erosionabilidad muy alta (I) hasta no erosiva (VI), basadas en la relación entre velocidad del flujo o esfuerzo cortante y la tasa de erosión.
+
+### Clasificación General
+
+| Categoría | Descripción | Tasa de Erosión (mm/hr a 10 Pa) | Ejemplos |
+|-----------|-------------|----------------------------------|----------|
+| **I** | Muy alta erosionabilidad | > 100 | Arena fina, limo no plástico |
+| **II** | Alta erosionabilidad | 10 - 100 | Arena media, limo de baja plasticidad |
+| **III** | Erosionabilidad media | 1 - 10 | Franco limoso, arcilla de baja plasticidad |
+| **IV** | Baja erosionabilidad | 0.1 - 1 | Arcilla de alta plasticidad |
+| **V** | Muy baja erosionabilidad | 0.01 - 0.1 | Arcilla densa, grava |
+| **VI** | No erosiva | < 0.01 | Roca, concreto |
+
+---
+
+## Conclusiones
+
+1. **Variabilidad significativa**: Los parámetros de erosionabilidad varían varios órdenes de magnitud entre tipos de suelo
+
+2. **Los limos son más vulnerables**: Los suelos más erosionables son aquellos ricos en limo y arena fina
+
+3. **Importancia del contexto**: La estructura del suelo, materia orgánica y grado de compactación pueden ser tan importantes como la textura
+
+4. **Necesidad de calibración**: Siempre que sea posible, calibre los parámetros con datos de campo o experimentos de laboratorio específicos del sitio
+
+5. **Análisis de incertidumbre**: Incorpore rangos de valores y análisis de sensibilidad en las simulaciones de modelado
+
+---
+
+## Referencias Adicionales
+
+Para profundizar en estos temas:
+
+- **Métodos de prueba**: Jet Erosion Test (JET), Hole Erosion Test (HET), Erosion Function Apparatus (EFA)
+- **Modelos relacionados**: WEPP (Water Erosion Prediction Project), RUSLE2
+- **Bases de datos**: USDA-NRCS SSURGO para propiedades de suelos de EE.UU.
+
+---
+
+## Volver a la Navegación
+
+- [← Volver a la página principal](index.qmd)
+- [Resultados Interactivos de la Grilla](#)
+- [Discusión del Modelo](#)
+
+---
+
+*Última actualización: {{< meta date >}}*

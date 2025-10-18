@@ -1,0 +1,153 @@
+---
+title: "Modelado de Erosión con Esfuerzo Tractivo y Flujo Superficial"
+subtitle: "Cuantificando la evolución del paisaje usando componentes de Landlab"
+author: "Tu Nombre"
+date: today
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 2
+    code-fold: true
+    css: styles.css
+---
+
+## Resumen
+
+Este sitio presenta resultados de modelado de evolución del paisaje que simula procesos de erosión impulsados por el esfuerzo tractivo del flujo superficial integrado. El marco de modelado utiliza [Landlab](https://landlab.github.io/), una herramienta basada en Python para el modelado numérico de la dinámica de la superficie terrestre.
+
+Nuestro enfoque integra el enrutamiento hidrológico con la física del transporte de sedimentos para predecir patrones de erosión a través de superficies topográficas. Los modelos capturan la relación fundamental entre la hidráulica del flujo, el esfuerzo cortante del lecho y la movilización de sedimentos.
+
+---
+
+## Marco Teórico
+
+### Ecuaciones Fundamentales
+
+El modelo de erosión se basa en las siguientes relaciones físicas:
+
+**1. Acumulación de Flujo y Caudal**
+
+Para cada celda de la grilla, el área contribuyente aguas arriba $A$ determina el caudal de agua:
+
+$$
+Q = R \cdot A
+$$
+
+donde $Q$ es el caudal (m³/s), $R$ es la tasa de escorrentía (m/s), y $A$ es el área contribuyente (m²).
+
+**2. Profundidad del Flujo**
+
+Usando la ecuación de Manning para flujo superficial:
+
+$$
+h = \left(\frac{Qn}{w\sqrt{S}}\right)^{0.6}
+$$
+
+donde $h$ es la profundidad del flujo (m), $n$ es el coeficiente de rugosidad de Manning, $w$ es el ancho del flujo (m), y $S$ es la pendiente local (m/m).
+
+**3. Esfuerzo Tractivo (Esfuerzo Cortante del Lecho)**
+
+La fuerza por unidad de área ejercida por el agua que fluye sobre el lecho:
+
+$$
+\tau = \rho g h S
+$$
+
+donde $\tau$ es el esfuerzo tractivo (Pa), $\rho$ es la densidad del agua (kg/m³), $g$ es la aceleración gravitacional (m/s²).
+
+**4. Tasa de Erosión**
+
+La erosión ocurre cuando el esfuerzo tractivo excede un umbral crítico:
+
+$$
+E = k_e (\tau - \tau_c)^a \quad \text{para } \tau > \tau_c
+$$
+
+donde $E$ es la tasa de erosión (m/año), $k_e$ es el coeficiente de erodabilidad, $\tau_c$ es el esfuerzo cortante crítico, y $a$ es un exponente empírico (típicamente 1.0-1.5).
+
+### Importancia del coeficiente de erodabilidad y esfuerzo critico
+
+En el siguiente vinculo se profundiza en dichos parámetros [View Analysis →](coef_erodab.qmd)
+
+---
+
+## Flujo de Trabajo del Modelado
+
+El siguiente diagrama ilustra el procedimiento computacional implementado usando componentes de Landlab:
+
+```{mermaid}
+%%| fig-width: 8
+%%| fig-cap: "Flujo de trabajo computacional para modelado de erosión con Landlab"
+
+flowchart TD
+    A[Topografía Inicial<br/>Modelo Digital de Elevación] --> B[Dirección de Flujo<br/>FlowDirector]
+    B --> C[Acumulación de Flujo<br/>FlowAccumulator]
+    C --> D[Calcular Caudal<br/>Q = R × A]
+    D --> E[Computar Profundidad del Flujo<br/>Ecuación de Manning]
+    E --> F[Calcular Esfuerzo Tractivo<br/>τ = ρghS]
+    F --> G{τ > τ_c ?}
+    G -->|Sí| H[Computar Tasa de Erosión<br/>E = k_e × τ - τ_c^a]
+    G -->|No| I[Sin Erosión<br/>E = 0]
+    H --> J[Actualizar Elevación<br/>z_nuevo = z_viejo - E × Δt]
+    I --> J
+    J --> K{¿Continuar?}
+    K -->|Sí| B
+    K -->|No| L[Resultados de Salida<br/>Mapas de Erosión, Perfiles]
+    
+    style A fill:#e1f5ff
+    style L fill:#ffe1e1
+    style G fill:#fff4e1
+    style J fill:#f0e1ff
+```
+
+### Componentes Clave de Landlab
+
+- **FlowDirector**: Determina el enrutamiento del flujo (algoritmos D8, D∞, o MFD)
+- **FlowAccumulator**: Calcula el área de drenaje y el caudal
+- **FastscapeEroder** o **StreamPowerEroder**: Implementa la física de la erosión
+- **Linear Diffuser**: Componente opcional de difusión de laderas
+
+---
+
+## Parámetros del Modelo
+
+La siguiente tabla resume los parámetros clave utilizados en las simulaciones:
+
+| Parámetro | Símbolo | Valor Típico | Unidades |
+|-----------|---------|--------------|----------|
+| Tasa de escorrentía | $R$ | 1-100 | mm/hr |
+| Manning's n | $n$ | 0.01-0.15 | s/m^(1/3) |
+| Densidad del agua | $\rho$ | 1000 | kg/m³ |
+| Esfuerzo cortante crítico | $\tau_c$ | 1-10 | Pa |
+| Coeficiente de erosionabilidad | $k_e$ | 10⁻⁵-10⁻³ | m²/N·año |
+| Exponente | $a$ | 1.0-1.5 | - |
+
+---
+
+## Acerca de Este Análisis
+
+Este estudio de modelado explora cómo los patrones espaciales de acumulación de flujo y pendiente topográfica se combinan para generar tasas de erosión espacialmente variables. Los resultados demuestran:
+
+- **Canalización**: Cómo el flujo concentrado inicia redes de canales
+- **Efectos de umbral**: El papel del esfuerzo cortante crítico en la estabilidad del paisaje
+- **Relaciones de escala**: Vínculos entre área de drenaje, pendiente y tasa de erosión
+- **Evolución del paisaje**: Respuesta topográfica a largo plazo a la erosión
+
+Las visualizaciones interactivas a continuación te permiten explorar las salidas del modelo y comprender la distribución espacial de variables hidráulicas y de erosión a través del dominio del modelo.
+
+---
+
+## Resultados
+
+{{< embed erosion-El_Molino_T2-D1.ipynb#fig-topo >}}
+{{< embed erosion-El_Molino_T2-D1.ipynb#fig-tasa_ero >}}
+
+## Navegación
+
+- [[View Analysis →](erosion-El_Molino_T2-D1.ipynb#custom-anchor1)](#) - Explora patrones topográficos espaciales.
+- [[View Analysis →](erosion-El_Molino_T2-D1.ipynb#custom-anchor2)](#) - Explora patrones de erosión.
+
+---
+
+*Impulsado por Landlab • Construido con Quarto*
